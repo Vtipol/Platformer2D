@@ -30,17 +30,17 @@ public class StateDrivenEvent : MonoBehaviour
 
     public void Invoke()
     {
-        if (_currentState != null)
-        { 
-                        
-        }
 
-        if (!_stateEvents.ContainsKey(_currentState))
+        if (!_currentState || !_stateEvents.ContainsKey(_currentState))
         {
-            Debug.LogWarning("");
+            Debug.LogWarning("State doesn't exist or is null!");
+            return;
         }
 
-        _stateEvents[_currentState].Invoke();
+        if (_currentState != null)
+        {
+            _stateEvents[_currentState].Invoke();
+        }
     }
 
     public void SetState(State state)

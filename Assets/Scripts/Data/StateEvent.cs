@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class StateEvent
+public record StateEvent
 {
     public State State;
     public UnityEvent UnityEvent;

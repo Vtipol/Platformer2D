@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47c33b2ba45d6164d8d97cd2aa0b260e, type: 3}
+  m_Name: SnapshotTime
+  m_EditorClassIdentifier: 
+  _snapshot: {fileID: 3456925422811086209, guid: 730d68e1f68539e40b53a3029fa40e0a, type: 2}
+  _transitionDuration: 1
