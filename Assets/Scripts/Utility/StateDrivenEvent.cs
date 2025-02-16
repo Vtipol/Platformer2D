@@ -24,6 +24,11 @@ public class StateDrivenEvent : MonoBehaviour
         for (int i = 0; i < _stateEventsList.Count; i++)
         {
             StateEvent stateEvent = _stateEventsList[i];
+            if (stateEvent.State == null || stateEvent.UnityEvent == null)
+            {
+                Debug.LogWarning("A StateEvent in StateDrivenEvent in " + gameObject.name + " is not valid");
+                break;
+            }
             _stateEvents[stateEvent.State] = stateEvent.UnityEvent;
         }
     }
