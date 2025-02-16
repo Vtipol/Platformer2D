@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
+    //Static For Easy Ref.
     public static PlayerInput PlayerInput;
 
     public static Vector2 Movement;
