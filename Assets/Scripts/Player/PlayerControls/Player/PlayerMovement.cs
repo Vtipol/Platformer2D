@@ -1,12 +1,13 @@
 using UnityEngine;
 using static UnityEngine.UIElements.UxmlAttributeDescription;
 
-public class PlayerMovment : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Header("References")]
     public PlayerMovementStats MoveStats;
     [SerializeField] private Collider2D _feetColl;
     [SerializeField] private Collider2D _bodyColl;
+    [SerializeField] private Animator _animator;
 
     private Rigidbody2D _rb;
 
@@ -45,12 +46,14 @@ private void Awake()
     {
         _isFacingRight = true;
         _rb = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
         CountTimer();
         JumpChecks();
+        UpdateAnimations();
     }
 
     private void FixedUpdate()
@@ -358,6 +361,35 @@ private void Awake()
             _coyoteTimer -= Time.deltaTime;
         }
         else { _coyoteTimer = MoveStats.JumpCoyoteTime; }
+    }
+
+    #endregion
+
+    #region Animation
+
+    private void UpdateAnimations()
+    {
+        bool running = InputManager.Movement.x != 0 && _isGrounded;
+        _animator.SetBool("isRunning", running);
+        _animator.SetBool("isJumping", _isJumping);
+
+        // Use vertical velocity check for falling
+        bool falling = !_isGrounded && _rb.linearVelocity.y < -0.1f;
+        _animator.SetBool("isFalling", falling);
+
+        Debug.Log($"Running: {running}, Jumping: {_isJumping}, Falling: {falling}");
+    }
+
+
+    public void TakeDamage()
+    {
+        _animator.SetTrigger("Damaged");
+    }
+
+    public void Die()
+    {
+        _animator.SetTrigger("Dead");
+        this.enabled = false; // Disable player controls on death
     }
 
     #endregion
