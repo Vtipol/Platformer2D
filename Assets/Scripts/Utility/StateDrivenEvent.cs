@@ -24,23 +24,28 @@ public class StateDrivenEvent : MonoBehaviour
         for (int i = 0; i < _stateEventsList.Count; i++)
         {
             StateEvent stateEvent = _stateEventsList[i];
+            if (stateEvent.State == null || stateEvent.UnityEvent == null)
+            {
+                Debug.LogWarning("A StateEvent in StateDrivenEvent in " + gameObject.name + " is not valid");
+                break;
+            }
             _stateEvents[stateEvent.State] = stateEvent.UnityEvent;
         }
     }
 
     public void Invoke()
     {
-        if (_currentState != null)
-        { 
-                        
-        }
 
-        if (!_stateEvents.ContainsKey(_currentState))
+        if (!_currentState || !_stateEvents.ContainsKey(_currentState))
         {
-            Debug.LogWarning("");
+            Debug.LogWarning("State doesn't exist or is null!");
+            return;
         }
 
-        _stateEvents[_currentState].Invoke();
+        if (_currentState != null)
+        {
+            _stateEvents[_currentState].Invoke();
+        }
     }
 
     public void SetState(State state)
